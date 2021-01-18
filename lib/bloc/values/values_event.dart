@@ -19,12 +19,12 @@ class AddedNewValue extends ValuesEvent {
 }
 
 class LikedValue extends ValuesEvent {
-  final String newFavorite;
-  final int index;
+  // final String newFavorite;
+  // final int index;
 
-  LikedValue({this.newFavorite, this.index}) : super([newFavorite]);
+  // LikedValue({this.newFavorite, this.index}) : super([newFavorite]);
+  LikedValue() : super([]);
 
   @override
-  String toString() =>
-      "ValueAddedToFavorites { newFavoriteValue: $newFavorite }";
+  String toString() => "LikedValue";
 }

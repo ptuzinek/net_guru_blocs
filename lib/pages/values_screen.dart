@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:move_to_background/move_to_background.dart';
+import 'package:net_guru_blocs/bloc/favorites/favorites_bloc.dart';
 import 'package:net_guru_blocs/bloc/values/values_bloc.dart';
 import 'package:net_guru_blocs/components/fade_animation.dart';
 
@@ -22,13 +23,13 @@ class _ValuesScreenState extends State<ValuesScreen> {
       },
       child: Scaffold(
         body: BlocBuilder<ValuesBloc, ValuesState>(
-          buildWhen: (prevState, currentState) {
-            if(currentState is IconChangedSuccess) {
-              return false;
-            } else {
-              return true;
-            }
-          },
+            buildWhen: (prevState, currentState) {
+              if (currentState is IconChangedSuccess) {
+                return false;
+              } else {
+                return true;
+              }
+            },
             cubit: widget.bloc,
             builder: (BuildContext context, ValuesState state) {
               if (state is ValuesStateLoading) {
@@ -59,9 +60,17 @@ class _ValuesScreenState extends State<ValuesScreen> {
                               ? Colors.red
                               : Colors.black,
                         ),
-                        onPressed: () => widget.bloc.add(LikedValue(
-                            newFavorite: state.valuesList[state.index].valueText,
-                            index: state.index)),
+                        onPressed: () {
+                          BlocProvider.of<FavoritesBloc>(context).add(
+                              NewFavoriteValue(
+                                  newFavorite:
+                                      state.valuesList[state.index].valueText,
+                                  index: state.index));
+                          widget.bloc.add(LikedValue());
+                        },
+                        // widget.bloc.add(LikedValue(
+                        // newFavorite: state.valuesList[state.index].valueText,
+                        // index: state.index)),
                       ),
                     ),
                   ],

@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -49,17 +47,17 @@ class ValuesBloc extends Bloc<ValuesEvent, ValuesState> {
 
   Stream<ValuesState> _mapLikedValueToState(LikedValue event) async* {
     yield ValuesStateLoading();
-    repository.localValuesList[event.index].isFavorite = true;
-    List<String> updatedList = List();
-    repository.localValuesList.forEach((valueBase) {
-      if (valueBase.isFavorite) {
-        updatedList.add(valueBase.valueText);
-      }
-    });
-    print('PRINT THE UPDATEDLIST: $updatedList');
-    yield IconChangedSuccess(
-      favoritesList: updatedList,
-    );
+    // repository.localValuesList[event.index].isFavorite = true;
+    // List<String> updatedList = List();
+    // repository.localValuesList.forEach((valueBase) {
+    //   if (valueBase.isFavorite) {
+    //     updatedList.add(valueBase.valueText);
+    //   }
+    // });
+    // print('PRINT THE UPDATEDLIST: $updatedList');
+    // yield IconChangedSuccess(
+    //   favoritesList: updatedList,
+    // );
     yield ValuesUpdateSuccess(repository.localValuesList, repository.index);
   }
 
@@ -72,5 +70,4 @@ class ValuesBloc extends Bloc<ValuesEvent, ValuesState> {
       index,
     );
   }
-
 }

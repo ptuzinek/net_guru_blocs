@@ -5,7 +5,11 @@ abstract class FavoritesEvent extends Equatable {
 }
 
 class NewFavoriteValue extends FavoritesEvent {
-  final List<String> favoritesList;
+  //final List<String> favoritesList;
+  //NewFavoriteValue(this.favoritesList) : super([favoritesList]);
+  final String newFavorite;
+  final int index;
 
-  NewFavoriteValue(this.favoritesList) : super([favoritesList]);
+  NewFavoriteValue({this.newFavorite, this.index})
+      : super([newFavorite, index]);
 }

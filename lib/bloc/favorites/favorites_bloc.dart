@@ -1,27 +1,23 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
-import 'package:net_guru_blocs/bloc/values/values_bloc.dart';
+import '../../values_repository.dart';
 
 part 'favorites_event.dart';
 part 'favorites_state.dart';
 
 class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
-  final ValuesBloc valuesBloc;
-  StreamSubscription valuesBlocSubscription;
-  FavoritesBloc({@required this.valuesBloc}) : super(FavoritesEmpty()) {
-    valuesBlocSubscription = valuesBloc.listen((valuesState) {
-      print('FavoritesBloc');
-      print('Before if statement');
-      if (valuesState is IconChangedSuccess) {
-        print('FavoritesBloc');
-        print('state is IconChangedSuccess');
-        print('Favorites List: ${valuesState.favoritesList}');
-        add(NewFavoriteValue(valuesState.favoritesList));
-      }
-    });
-  }
+  // final ValuesBloc valuesBloc;
+  // StreamSubscription valuesBlocSubscription;
+  // FavoritesBloc({@required this.valuesBloc}) : super(FavoritesEmpty()) {
+  //   valuesBlocSubscription = valuesBloc.listen((valuesState) {
+  //     if (valuesState is IconChangedSuccess) {
+  //       add(NewFavoriteValue(valuesState.favoritesList));
+  //     }
+  //   });
+  // }
+  final ValuesRepository repository;
+  FavoritesBloc({this.repository}) : super(FavoritesEmpty());
 
   @override
   void onTransition(Transition<FavoritesEvent, FavoritesState> transition) {
@@ -40,14 +36,17 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
 
   Stream<FavoritesState> _mapNewFavoriteValueToState(
       NewFavoriteValue event) async* {
-    print('In _mapNewFavoriteValueToState');
-    print('favoritesList: ${event.favoritesList}');
-    yield FavoritesUpdateSuccess(favoritesList: event.favoritesList);
-  }
-
-  @override
-  Future<void> close() {
-    valuesBlocSubscription.cancel();
-    return super.close();
+    //yield FavoritesUpdateSuccess(favoritesList: event.favoritesList);
+    repository.localValuesList[event.index].isFavorite = true;
+    List<String> updatedList = List();
+    repository.localValuesList.forEach((valueBase) {
+      if (valueBase.isFavorite) {
+        updatedList.add(valueBase.valueText);
+      }
+    });
+    print('PRINT THE UPDATEDLIST: $updatedList');
+    yield FavoritesUpdateSuccess(
+      favoritesList: updatedList,
+    );
   }
 }
