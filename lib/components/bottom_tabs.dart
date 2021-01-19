@@ -18,7 +18,7 @@ class BottomTabs extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomAppBar(
       shape: CircularNotchedRectangle(),
-      color: Colors.green,
+      color: Theme.of(context).primaryColor,
       notchMargin: 8.0,
       child: Row(
         mainAxisSize: MainAxisSize.max,

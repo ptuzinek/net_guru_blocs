@@ -1,8 +1,9 @@
 import 'dart:math';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'model/value_base.dart';
 
 class ValuesRepository {
+  final SharedPreferences preferences;
   final List<ValueBase> localValuesList = [
     ValueBase(
         valueText: '1 Exceed clients\' and colleagues\' expectations',
@@ -33,8 +34,15 @@ class ValuesRepository {
   int index;
   Random rnd = Random();
 
-  ValuesRepository() {
+  ValuesRepository({this.preferences}) {
     index = rnd.nextInt(localValuesList.length);
+  }
+
+  List<String> get valuesList =>
+      preferences.getStringList('valuesList') ?? localValuesList;
+
+  set valuesList(List<String> newValuesList) {
+    preferences.setStringList('valuesList', newValuesList);
   }
 
   int getNextIndex() {
@@ -54,9 +62,9 @@ class ValuesRepository {
     return localValuesList;
   }
 
-  List<String> addToFavoritesList(String newValue) {
-    localFavoritesList.add(newValue);
-
-    return localFavoritesList;
-  }
+  // List<String> addToFavoritesList(String newValue) {
+  //   localFavoritesList.add(newValue);
+  //
+  //   return localFavoritesList;
+  // }
 }

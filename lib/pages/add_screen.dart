@@ -25,9 +25,11 @@ class _AddScreenState extends State<AddScreen> {
   }
 
   void addNewValueToList(ValueBase newValue) {
-    textEditingController.clear();
-    widget.bloc.add(AddedNewValue(newValue: newValue));
-    FocusScope.of(context).unfocus();
+    if (newValue.valueText.length > 0) {
+      textEditingController.clear();
+      widget.bloc.add(AddedNewValue(newValue: newValue));
+      FocusScope.of(context).unfocus();
+    }
   }
 
   @override

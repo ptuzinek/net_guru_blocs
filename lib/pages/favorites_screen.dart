@@ -17,46 +17,40 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
-  // @override
-  // void initState() {
-  //   widget.bloc.add(FavoritesScreenShowed());
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () async {
-          MoveToBackground.moveTaskToBack();
-          return false;
-        },
-        child: BlocBuilder<FavoritesBloc, FavoritesState>(
-          cubit: widget.bloc,
-          builder: (BuildContext context, FavoritesState state) {
-            if (state is FavoritesUpdateSuccess) {
-              print('FavoritesScreen');
-              print('FavoritesScreen - favoritesList: ${state.favoritesList}');
-              List<Widget> favoriteWidgetsList = [];
-              for (String favorite in state.favoritesList) {
-                final favoriteWidget = FavoriteBubble(
-                  text: favorite,
-                );
-                favoriteWidgetsList.add(favoriteWidget);
-              }
-              return Scaffold(
-                body: Container(
-                  child: Center(
-                      child: ListView(
-                    children: favoriteWidgetsList,
-                  )),
-                ),
+      onWillPop: () async {
+        MoveToBackground.moveTaskToBack();
+        return false;
+      },
+      child: BlocBuilder<FavoritesBloc, FavoritesState>(
+        cubit: widget.bloc,
+        builder: (BuildContext context, FavoritesState state) {
+          if (state is FavoritesUpdateSuccess) {
+            List<Widget> favoriteWidgetsList = [];
+            for (String favorite in state.favoritesList) {
+              final favoriteWidget = FavoriteBubble(
+                text: favorite,
               );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+              favoriteWidgetsList.add(favoriteWidget);
             }
-          },
-        ));
+            return Scaffold(
+              body: Container(
+                child: Center(
+                  child: ListView(
+                    children: favoriteWidgetsList,
+                  ),
+                ),
+              ),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+    );
   }
 }

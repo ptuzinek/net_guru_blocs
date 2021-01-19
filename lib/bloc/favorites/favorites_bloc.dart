@@ -7,15 +7,6 @@ part 'favorites_event.dart';
 part 'favorites_state.dart';
 
 class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
-  // final ValuesBloc valuesBloc;
-  // StreamSubscription valuesBlocSubscription;
-  // FavoritesBloc({@required this.valuesBloc}) : super(FavoritesEmpty()) {
-  //   valuesBlocSubscription = valuesBloc.listen((valuesState) {
-  //     if (valuesState is IconChangedSuccess) {
-  //       add(NewFavoriteValue(valuesState.favoritesList));
-  //     }
-  //   });
-  // }
   final ValuesRepository repository;
   FavoritesBloc({this.repository}) : super(FavoritesEmpty());
 
@@ -36,7 +27,6 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
 
   Stream<FavoritesState> _mapNewFavoriteValueToState(
       NewFavoriteValue event) async* {
-    //yield FavoritesUpdateSuccess(favoritesList: event.favoritesList);
     repository.localValuesList[event.index].isFavorite = true;
     List<String> updatedList = List();
     repository.localValuesList.forEach((valueBase) {
@@ -44,7 +34,6 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
         updatedList.add(valueBase.valueText);
       }
     });
-    print('PRINT THE UPDATEDLIST: $updatedList');
     yield FavoritesUpdateSuccess(
       favoritesList: updatedList,
     );

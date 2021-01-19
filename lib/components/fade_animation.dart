@@ -56,12 +56,6 @@ class _FadeAnimationState extends State<FadeAnimation>
       } else if (status == AnimationStatus.dismissed) {
         // change the index (fading animation ended)
         widget.bloc.add(AnimationEnded());
-
-        //
-        // setState(() {
-        //   index = getNextIndex();
-        // });
-
         _controller.forward();
       }
     });
@@ -82,7 +76,10 @@ class _FadeAnimationState extends State<FadeAnimation>
         child: Center(
           child: Text(
             widget.valueText,
-            style: TextStyle(fontSize: 25.0),
+            style: TextStyle(
+              fontFamily: 'Vollkorn',
+              fontSize: 30.0,
+            ),
           ),
         ),
       ),

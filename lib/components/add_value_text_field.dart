@@ -27,11 +27,13 @@ class _AddValueTextFieldState extends State<AddValueTextField> {
             contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(32)),
-              borderSide: BorderSide(color: Colors.green, width: 2.0),
+              borderSide:
+                  BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(32)),
-              borderSide: BorderSide(color: Colors.green, width: 4.0),
+              borderSide:
+                  BorderSide(color: Theme.of(context).primaryColor, width: 4.0),
             )),
       ),
     );

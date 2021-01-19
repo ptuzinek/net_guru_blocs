@@ -58,7 +58,10 @@ class _ValuesScreenState extends State<ValuesScreen> {
                           size: 30,
                           color: state.valuesList[state.index].isFavorite
                               ? Colors.red
-                              : Colors.black,
+                              : Theme.of(context)
+                                  .primaryTextTheme
+                                  .bodyText1
+                                  .color,
                         ),
                         onPressed: () {
                           BlocProvider.of<FavoritesBloc>(context).add(
@@ -68,9 +71,6 @@ class _ValuesScreenState extends State<ValuesScreen> {
                                   index: state.index));
                           widget.bloc.add(LikedValue());
                         },
-                        // widget.bloc.add(LikedValue(
-                        // newFavorite: state.valuesList[state.index].valueText,
-                        // index: state.index)),
                       ),
                     ),
                   ],

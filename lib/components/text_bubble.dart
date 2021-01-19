@@ -15,7 +15,7 @@ class FavoriteBubble extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Material(
-            color: Colors.green,
+            color: Theme.of(context).primaryColor,
             elevation: 5,
             borderRadius: BorderRadius.all(
               Radius.circular(30),
@@ -25,7 +25,9 @@ class FavoriteBubble extends StatelessWidget {
               child: Text(
                 '$text',
                 style: TextStyle(
-                    fontSize: 20.0, fontFamily: 'Ultra', color: Colors.black45),
+                  fontSize: 25.0,
+                  fontFamily: 'Vollkorn',
+                ),
               ),
             ),
           ),
