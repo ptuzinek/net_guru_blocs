@@ -29,7 +29,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         builder: (BuildContext context, FavoritesState state) {
           if (state is FavoritesUpdateSuccess) {
             List<Widget> favoriteWidgetsList = [];
-            for (String favorite in state.favoritesList) {
+            for (String favorite in state.favoritesList.reversed) {
               final favoriteWidget = FavoriteBubble(
                 text: favorite,
               );

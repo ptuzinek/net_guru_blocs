@@ -8,7 +8,9 @@ part 'favorites_state.dart';
 
 class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   final ValuesRepository repository;
-  FavoritesBloc({this.repository}) : super(FavoritesEmpty());
+  FavoritesBloc({this.repository})
+      : super(FavoritesUpdateSuccess(
+            favoritesList: repository.localFavoritesList));
 
   @override
   void onTransition(Transition<FavoritesEvent, FavoritesState> transition) {
@@ -27,13 +29,8 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
 
   Stream<FavoritesState> _mapNewFavoriteValueToState(
       NewFavoriteValue event) async* {
-    repository.localValuesList[event.index].isFavorite = true;
-    List<String> updatedList = List();
-    repository.localValuesList.forEach((valueBase) {
-      if (valueBase.isFavorite) {
-        updatedList.add(valueBase.valueText);
-      }
-    });
+    // ToDo - Save favoritesList to SharedPreferences
+    List<String> updatedList = repository.addToFavoritesList(event.newFavorite);
     yield FavoritesUpdateSuccess(
       favoritesList: updatedList,
     );

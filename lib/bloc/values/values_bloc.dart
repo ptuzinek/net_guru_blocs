@@ -15,7 +15,11 @@ class ValuesBloc extends Bloc<ValuesEvent, ValuesState> {
 
   ValuesBloc({
     @required this.repository,
-  }) : super(ValuesUpdateSuccess(repository.localValuesList, repository.index));
+  }) : super(ValuesUpdateSuccess(
+          valuesList: repository.localValuesList,
+          favoritesList: repository.localFavoritesList,
+          index: repository.index,
+        ));
 
   @override
   void onTransition(Transition<ValuesEvent, ValuesState> transition) {
@@ -38,16 +42,23 @@ class ValuesBloc extends Bloc<ValuesEvent, ValuesState> {
 
   Stream<ValuesState> _mapAddedNewValueToState(AddedNewValue event) async* {
     yield ValuesStateLoading();
-    List<ValueBase> updatedList = repository.addToValuesList(event.newValue);
+    List<String> updatedList = repository.addToValuesList(event.newValue);
+    // ToDo - save valueList to SharedPreferences
     yield ValuesUpdateSuccess(
-      updatedList,
-      repository.index,
+      valuesList: updatedList,
+      favoritesList: repository.localFavoritesList,
+      index: repository.index,
     );
   }
 
   Stream<ValuesState> _mapLikedValueToState(LikedValue event) async* {
     yield ValuesStateLoading();
-    yield ValuesUpdateSuccess(repository.localValuesList, repository.index);
+
+    yield ValuesUpdateSuccess(
+      valuesList: repository.localValuesList,
+      favoritesList: repository.localFavoritesList,
+      index: repository.index,
+    );
   }
 
   Stream<ValuesState> _mapAnimationEndedToState(AnimationEnded event) async* {
@@ -55,8 +66,9 @@ class ValuesBloc extends Bloc<ValuesEvent, ValuesState> {
     int index = repository.getNextIndex();
     repository.index = index;
     yield ValuesUpdateSuccess(
-      repository.getValuesList(),
-      index,
+      valuesList: repository.getValuesList(),
+      favoritesList: repository.localFavoritesList,
+      index: index,
     );
   }
 }

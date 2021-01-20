@@ -24,8 +24,8 @@ class _AddScreenState extends State<AddScreen> {
     super.dispose();
   }
 
-  void addNewValueToList(ValueBase newValue) {
-    if (newValue.valueText.length > 0) {
+  void addNewValueToList(String newValue) {
+    if (newValue.length > 0) {
       textEditingController.clear();
       widget.bloc.add(AddedNewValue(newValue: newValue));
       FocusScope.of(context).unfocus();
@@ -50,8 +50,7 @@ class _AddScreenState extends State<AddScreen> {
               controller: textEditingController,
             ),
             FlatButton(
-              onPressed: () => addNewValueToList(
-                  ValueBase(valueText: newValue, isFavorite: false)),
+              onPressed: () => addNewValueToList(newValue),
               child: Text('Add'),
             ),
           ],

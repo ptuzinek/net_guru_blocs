@@ -10,9 +10,11 @@ class FloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      backgroundColor: Theme.of(context).primaryColor,
+      elevation: 12,
+      backgroundColor: Colors.lightGreenAccent,
       child: Icon(
         Icons.add,
+        size: 30,
         color: activeTab == AppTab.addValue ? Colors.white : Colors.black,
       ),
       onPressed: onPressed,

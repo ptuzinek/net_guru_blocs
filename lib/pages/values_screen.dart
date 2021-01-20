@@ -23,13 +23,6 @@ class _ValuesScreenState extends State<ValuesScreen> {
       },
       child: Scaffold(
         body: BlocBuilder<ValuesBloc, ValuesState>(
-            buildWhen: (prevState, currentState) {
-              if (currentState is IconChangedSuccess) {
-                return false;
-              } else {
-                return true;
-              }
-            },
             cubit: widget.bloc,
             builder: (BuildContext context, ValuesState state) {
               if (state is ValuesStateLoading) {
@@ -46,7 +39,7 @@ class _ValuesScreenState extends State<ValuesScreen> {
                     Container(
                       height: 250,
                       child: FadeAnimation(
-                        valueText: state.valuesList[state.index].valueText,
+                        valueText: state.valuesList[state.index],
                         bloc: widget.bloc,
                       ),
                     ),
@@ -56,7 +49,8 @@ class _ValuesScreenState extends State<ValuesScreen> {
                         icon: Icon(
                           Icons.favorite,
                           size: 30,
-                          color: state.valuesList[state.index].isFavorite
+                          color: state.favoritesList
+                                  .contains(state.valuesList[state.index])
                               ? Colors.red
                               : Theme.of(context)
                                   .primaryTextTheme
@@ -66,10 +60,9 @@ class _ValuesScreenState extends State<ValuesScreen> {
                         onPressed: () {
                           BlocProvider.of<FavoritesBloc>(context).add(
                               NewFavoriteValue(
-                                  newFavorite:
-                                      state.valuesList[state.index].valueText,
+                                  newFavorite: state.valuesList[state.index],
                                   index: state.index));
-                          widget.bloc.add(LikedValue());
+                          widget.bloc.add(LikedValue(index: state.index));
                         },
                       ),
                     ),

@@ -10,21 +10,14 @@ class ValuesStateLoading extends ValuesState {
 }
 
 class ValuesUpdateSuccess extends ValuesState {
-  final List<ValueBase> valuesList;
+  final List<String> valuesList;
+  final List<String> favoritesList;
   final int index;
 
-  ValuesUpdateSuccess(this.valuesList, this.index) : super([valuesList]);
+  ValuesUpdateSuccess({this.valuesList, this.favoritesList, this.index})
+      : super([valuesList, favoritesList, index]);
 
   @override
   String toString() =>
-      'ValuesUpdateSuccess {index: $index , valuesQuantity: ${valuesList.length}}';
-}
-
-class IconChangedSuccess extends ValuesState {
-  final List<String> favoritesList;
-
-  IconChangedSuccess({this.favoritesList}) : super([favoritesList]);
-
-  @override
-  String toString() => 'IconChangedSuccess { likedValueList: $favoritesList}';
+      'ValuesUpdateSuccess {index: $index , valuesQuantity: ${valuesList.length}, favoritesQuantity: ${favoritesList.length}';
 }

@@ -10,7 +10,7 @@ class AnimationEnded extends ValuesEvent {
 }
 
 class AddedNewValue extends ValuesEvent {
-  final ValueBase newValue;
+  final String newValue;
 
   AddedNewValue({this.newValue}) : super([newValue]);
 
@@ -19,11 +19,9 @@ class AddedNewValue extends ValuesEvent {
 }
 
 class LikedValue extends ValuesEvent {
-  // final String newFavorite;
-  // final int index;
+  final int index;
 
-  // LikedValue({this.newFavorite, this.index}) : super([newFavorite]);
-  LikedValue() : super([]);
+  LikedValue({this.index}) : super([index]);
 
   @override
   String toString() => "LikedValue";

@@ -4,7 +4,11 @@ abstract class FavoritesState extends Equatable {
   FavoritesState([List props = const []]) : super(props);
 }
 
-class FavoritesEmpty extends FavoritesState {
+class FavoritesInitial extends FavoritesState {
+  final List<String> favoritesList;
+
+  FavoritesInitial({this.favoritesList}) : super([favoritesList]);
+
   @override
   String toString() => 'FavoritesEmpty';
 }

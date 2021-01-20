@@ -4,45 +4,40 @@ import 'model/value_base.dart';
 
 class ValuesRepository {
   final SharedPreferences preferences;
-  final List<ValueBase> localValuesList = [
-    ValueBase(
-        valueText: '1 Exceed clients\' and colleagues\' expectations',
-        isFavorite: false),
-    ValueBase(
-        valueText:
-            '2 Take ownership and question the status quo in a constructive manner',
-        isFavorite: false),
-    ValueBase(
-        valueText:
-            '3 Be brave, curious and experiment. Learn from all successes and failures',
-        isFavorite: false),
-    ValueBase(
-        valueText: '4 Act in a way that makes all of us proud',
-        isFavorite: false),
-    ValueBase(
-        valueText:
-            '5 Build an inclusive, transparent and socially responsible culture',
-        isFavorite: false),
-    ValueBase(
-        valueText: '6 Be ambitious, grow yourself and the people around you',
-        isFavorite: false),
-    ValueBase(
-        valueText: '7 Recognize excellence and engagement', isFavorite: false),
-  ];
-
-  final List<String> localFavoritesList = List();
   int index;
   Random rnd = Random();
+  List<String> localFavoritesList = List();
+  List<String> localValuesList = [
+    '1 Exceed clients\' and colleagues\' expectations',
+    '2 Take ownership and question the status quo in a constructive manner',
+    '3 Be brave, curious and experiment. Learn from all successes and failures',
+    '4 Act in a way that makes all of us proud',
+    '5 Build an inclusive, transparent and socially responsible culture',
+    '6 Be ambitious, grow yourself and the people around you',
+    '7 Recognize excellence and engagement',
+  ];
 
   ValuesRepository({this.preferences}) {
     index = rnd.nextInt(localValuesList.length);
+    // ToDo - get the localValuesList and localFavoritesList here if not null
+    localValuesList = getValuesListFromSP();
+    localFavoritesList = getFavoriteListFromSP();
   }
 
-  List<String> get valuesList =>
-      preferences.getStringList('valuesList') ?? localValuesList;
+  List<String> getValuesListFromSP() {
+    return preferences.getStringList('valuesList') ?? localValuesList;
+  }
 
-  set valuesList(List<String> newValuesList) {
+  saveValuesListToSP(List<String> newValuesList) {
     preferences.setStringList('valuesList', newValuesList);
+  }
+
+  List<String> getFavoriteListFromSP() {
+    return preferences.getStringList('favoritesList') ?? localFavoritesList;
+  }
+
+  saveFavoriteListToSP(List<String> newFavoritesList) {
+    preferences.setStringList('favoritesList', newFavoritesList);
   }
 
   int getNextIndex() {
@@ -53,18 +48,21 @@ class ValuesRepository {
     return nextIndex;
   }
 
-  List<ValueBase> getValuesList() {
+  List<String> getValuesList() {
     return localValuesList;
   }
 
-  List<ValueBase> addToValuesList(ValueBase newValue) {
+  List<String> addToValuesList(String newValue) {
     localValuesList.add(newValue);
+    saveValuesListToSP(localValuesList);
     return localValuesList;
   }
 
-  // List<String> addToFavoritesList(String newValue) {
-  //   localFavoritesList.add(newValue);
-  //
-  //   return localFavoritesList;
-  // }
+  List<String> addToFavoritesList(String newValue) {
+    if (!localFavoritesList.contains(newValue)) {
+      localFavoritesList.add(newValue);
+      saveFavoriteListToSP(localFavoritesList);
+    }
+    return localFavoritesList;
+  }
 }
