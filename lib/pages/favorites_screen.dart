@@ -46,7 +46,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             );
           } else {
             return Center(
-              child: CircularProgressIndicator(),
+              child: Text('Your Favorite values will show up here!'),
             );
           }
         },

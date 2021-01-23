@@ -18,6 +18,7 @@ class ValuesUpdateSuccess extends ValuesState {
       : super([valuesList, favoritesList, index]);
 
   @override
-  String toString() =>
-      'ValuesUpdateSuccess {index: $index , valuesQuantity: ${valuesList.length}, favoritesQuantity: ${favoritesList.length}';
+  String toString() => 'ValuesUpdateSuccess {index: $index , '
+      'valuesQuantity: ${valuesList.length}, '
+      'favoritesQuantity: ${favoritesList.length}';
 }

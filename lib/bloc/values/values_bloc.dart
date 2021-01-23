@@ -2,11 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:net_guru_blocs/model/value_base.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../values_repository.dart';
-
 part 'values_event.dart';
 part 'values_state.dart';
 
@@ -43,7 +39,6 @@ class ValuesBloc extends Bloc<ValuesEvent, ValuesState> {
   Stream<ValuesState> _mapAddedNewValueToState(AddedNewValue event) async* {
     yield ValuesStateLoading();
     List<String> updatedList = repository.addToValuesList(event.newValue);
-    // ToDo - save valueList to SharedPreferences
     yield ValuesUpdateSuccess(
       valuesList: updatedList,
       favoritesList: repository.localFavoritesList,
@@ -66,7 +61,7 @@ class ValuesBloc extends Bloc<ValuesEvent, ValuesState> {
     int index = repository.getNextIndex();
     repository.index = index;
     yield ValuesUpdateSuccess(
-      valuesList: repository.getValuesList(),
+      valuesList: repository.localValuesList,
       favoritesList: repository.localFavoritesList,
       index: index,
     );

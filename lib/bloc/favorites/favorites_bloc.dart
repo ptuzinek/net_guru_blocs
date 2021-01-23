@@ -29,7 +29,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
 
   Stream<FavoritesState> _mapNewFavoriteValueToState(
       NewFavoriteValue event) async* {
-    // ToDo - Save favoritesList to SharedPreferences
+    // Save favoritesList to SharedPreferences
     List<String> updatedList = repository.addToFavoritesList(event.newFavorite);
     yield FavoritesUpdateSuccess(
       favoritesList: updatedList,

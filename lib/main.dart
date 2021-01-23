@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:net_guru_blocs/bloc/tab/tab_bloc.dart';
+import 'package:net_guru_blocs/components/splash_screen.dart';
 import 'package:net_guru_blocs/pages/home_screen.dart';
 import 'package:net_guru_blocs/values_repository.dart';
 import 'bloc/favorites/favorites_bloc.dart';
@@ -50,7 +51,7 @@ class _MyAppState extends State<MyApp> {
           brightness: Brightness.dark,
         ),
         debugShowCheckedModeBanner: false,
-        home: HomePage(),
+        home: SplashScreen(),
       ),
     );
   }

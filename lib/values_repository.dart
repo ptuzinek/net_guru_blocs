@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'model/value_base.dart';
 
 class ValuesRepository {
   final SharedPreferences preferences;
@@ -19,7 +18,6 @@ class ValuesRepository {
 
   ValuesRepository({this.preferences}) {
     index = rnd.nextInt(localValuesList.length);
-    // ToDo - get the localValuesList and localFavoritesList here if not null
     localValuesList = getValuesListFromSP();
     localFavoritesList = getFavoriteListFromSP();
   }
@@ -46,10 +44,6 @@ class ValuesRepository {
       nextIndex = rnd.nextInt(localValuesList.length);
     }
     return nextIndex;
-  }
-
-  List<String> getValuesList() {
-    return localValuesList;
   }
 
   List<String> addToValuesList(String newValue) {
