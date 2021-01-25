@@ -9,10 +9,9 @@ This is an app that randomly displayes motivational value sentences using fade a
 - User can add new text to the list that is randomly displayed and it will be saved on the devices through SharedPreferances
 - Option to save text to the list of favorites by clicking on the heart icon
 - Heart Icon changes to red if currently displayed text is in the favorites list already
-- Option to change Theme between dark and light by clicking on IconButton
-- Choosed theme is saved to SharedPreferences
+- App detects device's dark or light mode and switches theme accordingly 
+- App icon with a Company's logo
 - Splash screen with logo
-- Appbar changes depending on the currently displayed Screen
 - Bottom Navigation Bar synchronised with PageView  
   
   # Icon and Launch Screen :rocket:  
