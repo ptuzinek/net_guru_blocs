@@ -12,6 +12,7 @@ This is an app that randomly displayes motivational value sentences using fade a
 - App detects device's dark or light mode and switches theme accordingly 
 - App icon with a Company's logo
 - Splash screen with logo
+- Animated intro
 - Bottom Navigation Bar synchronised with PageView  
   
   # Icon and Launch Screen :rocket:  
