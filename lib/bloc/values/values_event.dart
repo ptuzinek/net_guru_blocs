@@ -4,13 +4,20 @@ abstract class ValuesEvent extends Equatable {
   ValuesEvent([List props = const []]) : super(props);
 }
 
+class AppStarted extends ValuesEvent {
+  AppStarted() : super([]);
+
+  @override
+  String toString() => 'AppStarted';
+}
+
 class AnimationEnded extends ValuesEvent {
   @override
   String toString() => 'AnimationEnded';
 }
 
 class AddedNewValue extends ValuesEvent {
-  final String newValue;
+  final ValueBase newValue;
 
   AddedNewValue({this.newValue}) : super([newValue]);
 
@@ -19,9 +26,9 @@ class AddedNewValue extends ValuesEvent {
 }
 
 class LikedValue extends ValuesEvent {
-  final int index;
+  final ValueBase likedValue;
 
-  LikedValue({this.index}) : super([index]);
+  LikedValue({this.likedValue}) : super([likedValue]);
 
   @override
   String toString() => "LikedValue";

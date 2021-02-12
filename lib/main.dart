@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:net_guru_blocs/bloc/tab/tab_bloc.dart';
-import 'package:net_guru_blocs/components/splash_screen.dart';
-import 'package:net_guru_blocs/pages/home_screen.dart';
-import 'package:net_guru_blocs/values_repository.dart';
+import 'package:net_guru_blocs/data/repositories/values_repository.dart';
+import 'package:net_guru_blocs/presentation/pages/splash_screen.dart';
 import 'bloc/favorites/favorites_bloc.dart';
 import 'bloc/values/values_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  final ValuesRepository repository = ValuesRepository(preferences: prefs);
+  final ValuesRepository newRepository = ValuesRepository();
+
   runApp(MyApp(
-    repository: repository,
+    newRepository: newRepository,
   ));
 }
 
+// ToDo - turn to a StatelessWidget ???
 class MyApp extends StatefulWidget {
-  final ValuesRepository repository;
+  final ValuesRepository newRepository;
 
-  const MyApp({Key key, this.repository}) : super(key: key);
+  const MyApp({Key key, this.newRepository}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -32,10 +31,10 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ValuesBloc>(
-          create: (context) => ValuesBloc(repository: widget.repository),
+          create: (context) => ValuesBloc(repository: widget.newRepository),
         ),
         BlocProvider<FavoritesBloc>(
-          create: (context) => FavoritesBloc(repository: widget.repository),
+          create: (context) => FavoritesBloc(repository: widget.newRepository),
         ),
         BlocProvider<TabBloc>(
           create: (context) => TabBloc(),

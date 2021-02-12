@@ -10,7 +10,7 @@ class AnimationToNewPageEnded extends TabEvent {
   AnimationToNewPageEnded({this.newTab}) : super([newTab]);
 
   @override
-  String toString() => 'AnimationToNewPageEnded: newTab: $newTab';
+  String toString() => 'AnimationToNewPageEnded { newTab: $newTab }';
 }
 
 class UserSelectedTab extends TabEvent {
@@ -19,7 +19,7 @@ class UserSelectedTab extends TabEvent {
   UserSelectedTab({this.selectedTab}) : super([selectedTab]);
 
   @override
-  String toString() => 'TabUpdated { tab: $selectedTab }';
+  String toString() => 'TabUpdated { selected tab: $selectedTab }';
 }
 
 class UserScrolledToNewPage extends TabEvent {
@@ -28,5 +28,5 @@ class UserScrolledToNewPage extends TabEvent {
   UserScrolledToNewPage({this.currentTab}) : super([currentTab]);
 
   @override
-  String toString() => 'UserScrolledToNewPage: currentTab: $currentTab';
+  String toString() => 'UserScrolledToNewPage { currentTab: $currentTab }';
 }

@@ -4,20 +4,25 @@ abstract class FavoritesState extends Equatable {
   FavoritesState([List props = const []]) : super(props);
 }
 
-class FavoritesInitial extends FavoritesState {
-  final List<String> favoritesList;
+class ValuesLoadFailure extends FavoritesState {
+  final String error;
 
-  FavoritesInitial({this.favoritesList}) : super([favoritesList]);
+  ValuesLoadFailure({this.error}) : super([error]);
 
   @override
-  String toString() => 'FavoritesEmpty';
+  String toString() => 'ValuesLoadFailure { ERROR: $error } ';
 }
 
-class FavoritesUpdateSuccess extends FavoritesState {
+class NewFavoritesEmpty extends FavoritesState {
+  @override
+  String toString() => 'NewFavoritesEmpty';
+}
+
+class NewFavoritesUpdateSuccess extends FavoritesState {
   final List<String> favoritesList;
 
-  FavoritesUpdateSuccess({this.favoritesList}) : super([favoritesList]);
+  NewFavoritesUpdateSuccess({this.favoritesList}) : super([favoritesList]);
   @override
   String toString() =>
-      'FavoritesUpdateSuccess: favoritesQuantity: ${favoritesList.length}';
+      'FavoritesUpdateSuccess { favoritesQuantity: ${favoritesList.length} }';
 }

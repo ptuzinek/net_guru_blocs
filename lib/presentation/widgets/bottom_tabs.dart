@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:net_guru_blocs/model/app_tab.dart';
+import 'package:net_guru_blocs/data/models/app_tab.dart';
 
 class BottomTabs extends StatelessWidget {
   final AppTab activeTab;

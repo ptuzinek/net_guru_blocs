@@ -8,6 +8,9 @@ class UserScrollState extends TabState {
   final AppTab currentTab;
 
   UserScrollState({this.currentTab}) : super([currentTab]);
+
+  @override
+  String toString() => 'UserScrollState { current tab: $currentTab }';
 }
 
 class NewTabSelectionState extends TabState {
@@ -16,7 +19,7 @@ class NewTabSelectionState extends TabState {
   NewTabSelectionState({this.selectedTab}) : super([selectedTab]);
 
   @override
-  String toString() => 'ChangeTabState: $selectedTab';
+  String toString() => 'ChangeTabState { selected tab: $selectedTab }';
 }
 
 class NewPageState extends TabState {
@@ -25,5 +28,5 @@ class NewPageState extends TabState {
   NewPageState({this.newTab}) : super([newTab]);
 
   @override
-  String toString() => 'NewPageState: $newTab';
+  String toString() => 'NewPageState { new tab: $newTab }';
 }

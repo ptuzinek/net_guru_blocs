@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:net_guru_blocs/bloc/values/values_bloc.dart';
-import 'dart:math';
 
 // Animated Widget code
 class FadeAnimation extends StatefulWidget {
   FadeAnimation({
-    this.bloc,
-    this.valuesList,
     this.valueText,
+    this.onAnimationEnd,
   });
 
-  final ValuesBloc bloc;
-  final List valuesList;
   final String valueText;
+  final VoidCallback onAnimationEnd;
 
   @override
   _FadeAnimationState createState() => _FadeAnimationState();
@@ -22,21 +18,11 @@ class _FadeAnimationState extends State<FadeAnimation>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation _animation;
-  int index;
-  Random rnd = Random();
-
-  int getNextIndex() {
-    int nextIndex = rnd.nextInt(widget.valuesList.length);
-    while (nextIndex == index) {
-      nextIndex = rnd.nextInt(widget.valuesList.length);
-    }
-    return nextIndex;
-  }
 
   @override
   void initState() {
     super.initState();
-    //index = rnd.nextInt(widget.valuesList.length);
+
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 2, milliseconds: 500),
@@ -55,7 +41,7 @@ class _FadeAnimationState extends State<FadeAnimation>
         _controller.reverse(from: 1.0);
       } else if (status == AnimationStatus.dismissed) {
         // change the index (fading animation ended)
-        widget.bloc.add(AnimationEnded());
+        widget.onAnimationEnd?.call();
         _controller.forward();
       }
     });

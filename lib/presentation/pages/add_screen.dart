@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:move_to_background/move_to_background.dart';
 import 'package:net_guru_blocs/bloc/values/values_bloc.dart';
-import 'package:net_guru_blocs/components/add_value_text_field.dart';
-import 'package:net_guru_blocs/model/value_base.dart';
+import 'package:net_guru_blocs/data/models/value_base.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:net_guru_blocs/presentation/widgets/add_value_text_field.dart';
 
 // Stateful - TextField
 
 class AddScreen extends StatefulWidget {
-  AddScreen({@required this.bloc});
-  final ValuesBloc bloc;
-
   @override
   _AddScreenState createState() => _AddScreenState();
 }
@@ -24,10 +22,11 @@ class _AddScreenState extends State<AddScreen> {
     super.dispose();
   }
 
-  void addNewValueToList(String newValue) {
-    if (newValue.length > 0) {
+  void addNewValueToList(ValueBase newValue) {
+    if (newValue.valueText.length > 0) {
       textEditingController.clear();
-      widget.bloc.add(AddedNewValue(newValue: newValue));
+      BlocProvider.of<ValuesBloc>(context)
+          .add(AddedNewValue(newValue: newValue));
       FocusScope.of(context).unfocus();
     }
   }
@@ -50,7 +49,11 @@ class _AddScreenState extends State<AddScreen> {
               controller: textEditingController,
             ),
             FlatButton(
-              onPressed: () => addNewValueToList(newValue),
+              onPressed: () => addNewValueToList(ValueBase(
+                valueText: newValue,
+                isFavorite: false,
+                timestamp: DateTime.now(),
+              )),
               child: Text('Add'),
             ),
           ],
