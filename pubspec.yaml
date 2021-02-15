@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  equatable: ^0.2.0
   flutter:
     sdk: flutter
 
@@ -38,7 +39,8 @@ dev_dependencies:
   move_to_background: ^1.0.1
   shared_preferences: ^0.5.12+4
   flutter_bloc: ^6.1.1
-  equatable: ^0.2.0
+
+  bloc_test: ^7.1.0
   flutter_test:
     sdk: flutter
 

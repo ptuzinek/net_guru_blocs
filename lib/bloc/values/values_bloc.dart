@@ -50,9 +50,12 @@ class ValuesBloc extends Bloc<ValuesEvent, ValuesState> {
 
   Stream<ValuesState> _mapAnimationEndedToState(AnimationEnded event) async* {
     try {
-      List<ValueBase> valuesList = await repository.getAllValues();
-      final int index = _getNextIndex(valuesList);
-      yield ValuesUpdateSuccess(newValue: valuesList[index]);
+      //List<ValueBase> valuesList = await repository.getAllValues();
+      //final int index = _getNextIndex(valuesList);
+      final ValueBase valueBase = await repository.getRandomValue(
+          previousId: (state as ValuesUpdateSuccess).newValue.id);
+
+      yield ValuesUpdateSuccess(newValue: valueBase);
     } catch (error) {
       print('Error in _mapAnimationEndedToState: $error');
       yield ValuesLoadFailure(error: error);
@@ -66,21 +69,15 @@ class ValuesBloc extends Bloc<ValuesEvent, ValuesState> {
         valuesList = constants.startingValuesList;
         repository.saveValues(constants.startingValuesList);
       }
-      final int index = rnd.nextInt(valuesList.length);
-      yield ValuesUpdateSuccess(newValue: valuesList[index]);
+      //final int index = rnd.nextInt(valuesList.length);
+      final ValueBase valueBase = await repository.getRandomValue(
+          previousId:
+              0); // zero to not exclude any possible value from the valuesList
+      yield ValuesUpdateSuccess(newValue: valueBase);
+      //Future.delayed(Duration(seconds: 5), () => add(EmitNote()));
     } catch (error) {
       print('Error in _mapAppStartedToState $error');
       yield ValuesLoadFailure(error: error);
     }
-  }
-
-  int _getNextIndex(List<ValueBase> valuesList) {
-    final currentState = (state as ValuesUpdateSuccess);
-    int nextIndex = rnd.nextInt(valuesList.length);
-
-    while (valuesList[nextIndex].id == currentState.newValue.id) {
-      nextIndex = rnd.nextInt(valuesList.length);
-    }
-    return nextIndex;
   }
 }
