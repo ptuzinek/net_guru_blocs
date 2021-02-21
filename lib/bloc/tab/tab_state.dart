@@ -19,7 +19,7 @@ class NewTabSelectionState extends TabState {
   NewTabSelectionState({this.selectedTab}) : super([selectedTab]);
 
   @override
-  String toString() => 'ChangeTabState { selected tab: $selectedTab }';
+  String toString() => 'NewTabSelectionState { selected tab: $selectedTab }';
 }
 
 class NewPageState extends TabState {

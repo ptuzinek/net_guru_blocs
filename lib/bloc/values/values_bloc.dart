@@ -35,23 +35,20 @@ class ValuesBloc extends Bloc<ValuesEvent, ValuesState> {
   }
 
   Stream<ValuesState> _mapAddedNewValueToState(AddedNewValue event) async* {
-    final currentState = (state as ValuesUpdateSuccess);
-    yield ValuesUpdateSuccess(newValue: currentState.newValue);
-    repository.insertValue(event.newValue);
+    final ValueBase newValue =
+        event.newValue.copyWith(timestamp: DateTime.now());
+    final int id = await repository.insertValue(event.newValue);
+    yield ValuesUpdateSuccess(newValue: newValue.copyWith(id: id));
   }
 
   Stream<ValuesState> _mapLikedValueToState(LikedValue event) async* {
     // update current ValueBase object and pass it to the new state
-    final ValueBase newValue =
-        event.likedValue.copyWith(isFavorite: true, timestamp: DateTime.now());
+    final ValueBase newValue = await repository.getLikedValue(event.likedValue);
     yield ValuesUpdateSuccess(newValue: newValue);
-    repository.updateValue(newValue);
   }
 
   Stream<ValuesState> _mapAnimationEndedToState(AnimationEnded event) async* {
     try {
-      //List<ValueBase> valuesList = await repository.getAllValues();
-      //final int index = _getNextIndex(valuesList);
       final ValueBase valueBase = await repository.getRandomValue(
           previousId: (state as ValuesUpdateSuccess).newValue.id);
 
@@ -69,12 +66,10 @@ class ValuesBloc extends Bloc<ValuesEvent, ValuesState> {
         valuesList = constants.startingValuesList;
         repository.saveValues(constants.startingValuesList);
       }
-      //final int index = rnd.nextInt(valuesList.length);
       final ValueBase valueBase = await repository.getRandomValue(
           previousId:
               0); // zero to not exclude any possible value from the valuesList
       yield ValuesUpdateSuccess(newValue: valueBase);
-      //Future.delayed(Duration(seconds: 5), () => add(EmitNote()));
     } catch (error) {
       print('Error in _mapAppStartedToState $error');
       yield ValuesLoadFailure(error: error);

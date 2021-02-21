@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:net_guru_blocs/data/models/value_base.dart';
 import 'package:net_guru_blocs/data/repositories/values_repository.dart';
 
 part 'favorites_event.dart';
@@ -30,8 +29,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   Stream<FavoritesState> _mapFavoritesListRequestedToState(
       FavoritesListRequested event) async* {
     try {
-      List<ValueBase> valuesList = await repository.getAllValues();
-      final favoritesList = _mapValuesToFavorites(valuesList);
+      final favoritesList = await repository.getFavoritesList();
       if (favoritesList.length == 0) {
         yield NewFavoritesEmpty();
       } else {
@@ -40,16 +38,5 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     } catch (e) {
       yield ValuesLoadFailure(error: e);
     }
-  }
-
-  List<String> _mapValuesToFavorites(List<ValueBase> valuesList) {
-    List<String> favoritesList = List();
-    valuesList.sort((a, b) => a.timestamp.compareTo(b.timestamp));
-    valuesList.forEach((element) {
-      if (element.isFavorite) {
-        favoritesList.add(element.valueText);
-      }
-    });
-    return favoritesList;
   }
 }

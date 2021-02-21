@@ -19,7 +19,7 @@ class UserSelectedTab extends TabEvent {
   UserSelectedTab({this.selectedTab}) : super([selectedTab]);
 
   @override
-  String toString() => 'TabUpdated { selected tab: $selectedTab }';
+  String toString() => 'UserSelectedTab { selected tab: $selectedTab }';
 }
 
 class UserScrolledToNewPage extends TabEvent {

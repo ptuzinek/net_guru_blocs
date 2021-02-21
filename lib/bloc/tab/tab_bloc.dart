@@ -20,7 +20,11 @@ class TabBloc extends Bloc<TabEvent, TabState> {
     TabEvent event,
   ) async* {
     if (event is UserSelectedTab) {
-      yield NewTabSelectionState(selectedTab: event.selectedTab);
+      if (state is NewPageState) {
+        if ((state as NewPageState).newTab != event.selectedTab) {
+          yield NewTabSelectionState(selectedTab: event.selectedTab);
+        }
+      }
     } else if (event is UserScrolledToNewPage) {
       yield NewPageState(newTab: event.currentTab);
     } else if (event is AnimationToNewPageEnded) {

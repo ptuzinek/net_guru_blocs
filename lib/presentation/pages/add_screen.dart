@@ -52,7 +52,6 @@ class _AddScreenState extends State<AddScreen> {
               onPressed: () => addNewValueToList(ValueBase(
                 valueText: newValue,
                 isFavorite: false,
-                timestamp: DateTime.now(),
               )),
               child: Text('Add'),
             ),

@@ -44,6 +44,7 @@ class _ValuesScreenState extends State<ValuesScreen> {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: IconButton(
+                        key: Key('IconButton'),
                         icon: Icon(
                           Icons.favorite,
                           size: 30,

@@ -25,5 +25,6 @@ class ValuesUpdateSuccess extends ValuesState {
 
   @override
   String toString() =>
-      'ValuesUpdateSuccess { newValue: ${newValue.valueText} }';
+      'ValuesUpdateSuccess { newValue: id: ${newValue.id}, valueText: ${newValue.valueText}, isFavorite: ${newValue.isFavorite}, '
+      'timestamp: ${newValue.timestamp} }';
 }

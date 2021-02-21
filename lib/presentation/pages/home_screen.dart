@@ -68,6 +68,7 @@ class _HomePageState extends State<HomePage> {
             return NotificationListener(
               onNotification: (notification) {
                 if (notification is ScrollEndNotification) {
+                  print('ScrollEndNotification');
                   // RESET THE STATE
                   // To unblock the state update caused by scrolling to new page
                   // to be sure that the right tab is active when the scroll ends

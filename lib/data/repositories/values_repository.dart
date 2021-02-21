@@ -4,11 +4,20 @@ import 'package:net_guru_blocs/data/data_providers/values_api.dart';
 import 'package:net_guru_blocs/data/models/value_base.dart';
 
 class ValuesRepository {
-  final valuesApi = ValuesDataApi();
+  final ValuesDataApi valuesDataApi;
   final Random rnd = Random();
 
+  ValuesRepository({this.valuesDataApi});
+
+  Future getLikedValue(ValueBase likedValue) async {
+    likedValue =
+        likedValue.copyWith(isFavorite: true, timestamp: DateTime.now());
+    await updateValue(likedValue);
+    return likedValue;
+  }
+
   Future getRandomValue({int previousId}) async {
-    final valuesList = await valuesApi.getAllValues();
+    final valuesList = await valuesDataApi.getAllValues();
     int nextIndex = rnd.nextInt(valuesList.length);
 
     while (valuesList[nextIndex].id == previousId) {
@@ -17,16 +26,31 @@ class ValuesRepository {
     return valuesList[nextIndex];
   }
 
-  Future getAllValues() => valuesApi.getAllValues();
+  Future getFavoritesList() async {
+    final valuesList = await valuesDataApi.getAllValues();
 
-  Future insertValue(ValueBase valueBase) => valuesApi.insertValue(valueBase);
+    List<String> favoritesList = List();
+    valuesList.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+    valuesList.forEach((element) {
+      if (element.isFavorite) {
+        favoritesList.add(element.valueText);
+      }
+    });
+    return favoritesList;
+  }
 
-  Future updateValue(ValueBase valueBase) => valuesApi.updateValue(valueBase);
+  Future getAllValues() => valuesDataApi.getAllValues();
+
+  Future insertValue(ValueBase valueBase) =>
+      valuesDataApi.insertValue(valueBase);
+
+  Future updateValue(ValueBase valueBase) =>
+      valuesDataApi.updateValue(valueBase);
 
   Future saveValues(List<ValueBase> valuesList) =>
-      valuesApi.saveValues(valuesList);
+      valuesDataApi.saveValues(valuesList);
 
-  Future deleteValueById(int id) => valuesApi.deleteValue(id);
+  Future deleteValueById(int id) => valuesDataApi.deleteValue(id);
 
-  Future deleteAllValues() => valuesApi.clearTable();
+  Future deleteAllValues() => valuesDataApi.clearTable();
 }
