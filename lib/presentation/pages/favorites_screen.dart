@@ -46,8 +46,19 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               ),
             );
           } else {
-            return Center(
-              child: Text('Your Favorite values will show up here!'),
+            return Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Center(
+                child: Text(
+                  'Your Favorite values will show up here!',
+                  key: const Key('favorites_info_text'),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontFamily: 'Vollkorn',
+                  ),
+                ),
+              ),
             );
           }
         },

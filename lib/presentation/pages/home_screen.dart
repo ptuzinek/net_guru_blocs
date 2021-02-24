@@ -68,7 +68,6 @@ class _HomePageState extends State<HomePage> {
             return NotificationListener(
               onNotification: (notification) {
                 if (notification is ScrollEndNotification) {
-                  print('ScrollEndNotification');
                   // RESET THE STATE
                   // To unblock the state update caused by scrolling to new page
                   // to be sure that the right tab is active when the scroll ends
@@ -79,6 +78,22 @@ class _HomePageState extends State<HomePage> {
               },
               child: Scaffold(
                 resizeToAvoidBottomInset: false,
+                appBar: AppBar(
+                  actions: [
+                    Hero(
+                      tag: 'netguru',
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: SizedBox(
+                            height: 50.0,
+                            width: 50.0,
+                            child: Image.asset('images/netguru_icon.png')),
+                      ),
+                    ),
+                  ],
+                  // centerTitle: true,
+                  title: Text('Netguru values'),
+                ),
                 floatingActionButtonLocation:
                     FloatingActionButtonLocation.centerDocked,
                 floatingActionButton: FloatingButton(
@@ -96,6 +111,7 @@ class _HomePageState extends State<HomePage> {
                 body: PageView(
                   controller: controller,
                   onPageChanged: (index) {
+                    FocusScope.of(context).unfocus();
                     if (state is NewPageState) {
                       tabBloc.add(UserScrolledToNewPage(
                           currentTab: AppTab.values[index]));

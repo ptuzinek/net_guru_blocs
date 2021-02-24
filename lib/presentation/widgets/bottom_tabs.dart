@@ -27,6 +27,7 @@ class BottomTabs extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 20.0, bottom: 12.0),
             child: MaterialButton(
+              key: const Key('values_screen'),
               onPressed: onValuesPress,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -52,6 +53,7 @@ class BottomTabs extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 20.0, bottom: 12.0),
             child: MaterialButton(
+              key: const Key('favorites_screen'),
               onPressed: onFavoritesPress,
               child: Column(
                 mainAxisSize: MainAxisSize.min,

@@ -62,6 +62,8 @@ class _FadeAnimationState extends State<FadeAnimation>
         child: Center(
           child: Text(
             widget.valueText,
+            key: Key('valueText'),
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'Vollkorn',
               fontSize: 30.0,

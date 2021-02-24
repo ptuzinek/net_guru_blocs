@@ -96,11 +96,15 @@ void main() {
     test(
         'WHEN new ValueBase object is added '
         'THEN ValuesBloc emits ValuesUpdateSuccess state with addedValue', () {
+      final timestamp = DateTime.now();
       final ValueBase valueBaseToAdd = ValueBase(
           id: 8,
           valueText: 'New Value',
           isFavorite: false,
-          timestamp: DateTime.now());
+          timestamp: timestamp);
+
+      when(mockValuesRepository.getValueWithTimestamp(valueBaseToAdd))
+          .thenReturn(valueBaseToAdd.copyWith(timestamp: timestamp));
 
       when(mockValuesRepository.insertValue(valueBaseToAdd))
           .thenAnswer((_) => Future.value(valueBaseToAdd.id));
@@ -108,6 +112,7 @@ void main() {
       expectLater(
           valuesBloc,
           emitsInOrder([
+            ValueAddSuccess(addedValue: valueBaseToAdd),
             ValuesUpdateSuccess(newValue: valueBaseToAdd),
           ]));
 

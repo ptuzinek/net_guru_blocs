@@ -38,24 +38,36 @@ class _AddScreenState extends State<AddScreen> {
         MoveToBackground.moveTaskToBack();
         return false;
       },
-      child: Scaffold(
-        body: Column(
-          children: [
-            SizedBox(
-              height: 60,
-            ),
-            AddValueTextField(
-              onChanged: (value) => newValue = value,
-              controller: textEditingController,
-            ),
-            FlatButton(
-              onPressed: () => addNewValueToList(ValueBase(
-                valueText: newValue,
-                isFavorite: false,
-              )),
-              child: Text('Add'),
-            ),
-          ],
+      child: BlocListener<ValuesBloc, ValuesState>(
+        listener: (context, state) {
+          if (state is ValueAddSuccess) {
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text(
+                'Added new Value',
+                key: const Key('SnackBarText'),
+              ),
+            ));
+          }
+        },
+        child: Scaffold(
+          body: Column(
+            children: [
+              SizedBox(
+                height: 60,
+              ),
+              AddValueTextField(
+                onChanged: (value) => newValue = value,
+                controller: textEditingController,
+              ),
+              FlatButton(
+                onPressed: () => addNewValueToList(ValueBase(
+                  valueText: newValue,
+                  isFavorite: false,
+                )),
+                child: Text('Add'),
+              ),
+            ],
+          ),
         ),
       ),
     );

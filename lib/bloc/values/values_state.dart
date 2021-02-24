@@ -28,3 +28,12 @@ class ValuesUpdateSuccess extends ValuesState {
       'ValuesUpdateSuccess { newValue: id: ${newValue.id}, valueText: ${newValue.valueText}, isFavorite: ${newValue.isFavorite}, '
       'timestamp: ${newValue.timestamp} }';
 }
+
+class ValueAddSuccess extends ValuesState {
+  final ValueBase addedValue;
+
+  ValueAddSuccess({this.addedValue}) : super([addedValue]);
+
+  @override
+  String toString() => 'ValueAddSuccess { addedValue: ${addedValue.valueText}';
+}

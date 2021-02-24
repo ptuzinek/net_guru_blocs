@@ -9,6 +9,10 @@ class ValuesRepository {
 
   ValuesRepository({this.valuesDataApi});
 
+  ValueBase getValueWithTimestamp(ValueBase valueBase) {
+    return valueBase.copyWith(timestamp: DateTime.now());
+  }
+
   Future getLikedValue(ValueBase likedValue) async {
     likedValue =
         likedValue.copyWith(isFavorite: true, timestamp: DateTime.now());

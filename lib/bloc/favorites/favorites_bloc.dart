@@ -36,6 +36,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
         yield NewFavoritesUpdateSuccess(favoritesList: favoritesList);
       }
     } catch (e) {
+      print('ERROR content: ${e.toString()}');
       yield ValuesLoadFailure(error: e);
     }
   }

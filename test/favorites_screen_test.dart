@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:net_guru_blocs/presentation/pages/favorites_screen.dart';
-import 'package:net_guru_blocs/presentation/pages/values_screen.dart';
 import 'package:net_guru_blocs/bloc/favorites/favorites_bloc.dart';
 
 class MockFavoritesBloc extends Mock implements FavoritesBloc {}
@@ -43,7 +42,8 @@ void main() {
     whenListen(mockFavoritesBloc, blocController.stream);
   }
 
-  testWidgets('bloc waiting', (WidgetTester tester) async {
+  testWidgets('Initial Empty state, shows textInfo',
+      (WidgetTester tester) async {
     stubBlocStateChangedYields([NewFavoritesEmpty()]);
 
     await pumpFavoritesScreen(tester);
@@ -53,8 +53,8 @@ void main() {
   });
 
   testWidgets(
-      'Value updated successfully and adds LikedValue event when IconButton taped',
-      (WidgetTester tester) async {
+      'When state with favoritesList, then displays it in ListView'
+      'and verifies that event has been sent', (WidgetTester tester) async {
     stubBlocStateChangedYields([
       NewFavoritesUpdateSuccess(
           favoritesList: ['Value 1', 'Value 2', 'Value 3'])

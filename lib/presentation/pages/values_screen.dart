@@ -27,41 +27,45 @@ class _ValuesScreenState extends State<ValuesScreen> {
                     child: Center(child: CircularProgressIndicator()));
               }
               if (state is ValuesUpdateSuccess) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 250,
-                      child: FadeAnimation(
-                        valueText: state.newValue.valueText,
-                        onAnimationEnd: () {
-                          BlocProvider.of<ValuesBloc>(context)
-                              .add(AnimationEnded());
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: IconButton(
-                        key: Key('IconButton'),
-                        icon: Icon(
-                          Icons.favorite,
-                          size: 30,
-                          color: state.newValue.isFavorite
-                              ? Colors.red
-                              : Theme.of(context)
-                                  .primaryTextTheme
-                                  .bodyText1
-                                  .color,
+                return Center(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 250,
+                          child: FadeAnimation(
+                            valueText: state.newValue.valueText,
+                            onAnimationEnd: () {
+                              BlocProvider.of<ValuesBloc>(context)
+                                  .add(AnimationEnded());
+                            },
+                          ),
                         ),
-                        onPressed: () {
-                          BlocProvider.of<ValuesBloc>(context)
-                              .add(LikedValue(likedValue: state.newValue));
-                        },
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: IconButton(
+                            key: Key('IconButton'),
+                            icon: Icon(
+                              Icons.favorite,
+                              size: 30,
+                              color: state.newValue.isFavorite
+                                  ? Colors.red
+                                  : Theme.of(context)
+                                      .primaryTextTheme
+                                      .bodyText1
+                                      .color,
+                            ),
+                            onPressed: () {
+                              BlocProvider.of<ValuesBloc>(context)
+                                  .add(LikedValue(likedValue: state.newValue));
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 );
               } else {
                 return Center(

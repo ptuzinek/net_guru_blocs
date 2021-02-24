@@ -35,9 +35,11 @@ class ValuesBloc extends Bloc<ValuesEvent, ValuesState> {
   }
 
   Stream<ValuesState> _mapAddedNewValueToState(AddedNewValue event) async* {
-    final ValueBase newValue =
-        event.newValue.copyWith(timestamp: DateTime.now());
-    final int id = await repository.insertValue(event.newValue);
+    yield ValueAddSuccess(addedValue: event.newValue);
+
+    final ValueBase newValue = repository.getValueWithTimestamp(event.newValue);
+    final int id = await repository.insertValue(newValue);
+
     yield ValuesUpdateSuccess(newValue: newValue.copyWith(id: id));
   }
 

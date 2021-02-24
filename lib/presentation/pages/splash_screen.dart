@@ -53,7 +53,17 @@ class _SplashScreenState extends State<SplashScreen>
   Future<bool> _goToHomePageDelayed() async {
     await Future.delayed(Duration(milliseconds: 2500), () {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+        PageRouteBuilder(
+            transitionDuration: Duration(milliseconds: 2500),
+            pageBuilder: (
+              BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+            ) {
+              return HomePage();
+            }),
+      );
+      //MaterialPageRoute(builder: (BuildContext context) => HomePage()));
     });
     return true;
   }
@@ -104,7 +114,9 @@ class _SplashScreenState extends State<SplashScreen>
             Container(
               child: SlideTransition(
                 position: offsetImage,
-                child: Image.asset('images/netguru_icon.png'),
+                child: Hero(
+                    tag: 'netguru',
+                    child: Image.asset('images/netguru_icon.png')),
               ),
             ),
           ],
