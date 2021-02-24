@@ -14,10 +14,17 @@ class ValuesRepository {
   }
 
   Future getLikedValue(ValueBase likedValue) async {
-    likedValue =
-        likedValue.copyWith(isFavorite: true, timestamp: DateTime.now());
-    await updateValue(likedValue);
-    return likedValue;
+    if (likedValue.isFavorite) {
+      likedValue = likedValue.copyWith(isFavorite: false);
+      await updateValue(likedValue);
+      return likedValue;
+    } else {
+      likedValue =
+          likedValue.copyWith(isFavorite: true, timestamp: DateTime.now());
+
+      await updateValue(likedValue);
+      return likedValue;
+    }
   }
 
   Future getRandomValue({int previousId}) async {

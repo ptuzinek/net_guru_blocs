@@ -50,23 +50,25 @@ class _AddScreenState extends State<AddScreen> {
           }
         },
         child: Scaffold(
-          body: Column(
-            children: [
-              SizedBox(
-                height: 60,
-              ),
-              AddValueTextField(
-                onChanged: (value) => newValue = value,
-                controller: textEditingController,
-              ),
-              FlatButton(
-                onPressed: () => addNewValueToList(ValueBase(
-                  valueText: newValue,
-                  isFavorite: false,
-                )),
-                child: Text('Add'),
-              ),
-            ],
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 60,
+                ),
+                AddValueTextField(
+                  onChanged: (value) => newValue = value,
+                  controller: textEditingController,
+                ),
+                FlatButton(
+                  onPressed: () => addNewValueToList(ValueBase(
+                    valueText: newValue,
+                    isFavorite: false,
+                  )),
+                  child: Text('Add'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

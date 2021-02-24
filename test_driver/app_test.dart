@@ -33,55 +33,47 @@ void main() {
         () async {
       // have to runUnsynchronized to not wait until infinite animation ends
       await driver.runUnsynchronized(() async {
-        await Future.delayed(Duration(seconds: 1));
-
         await driver.waitFor(iconButton);
-        await Future.delayed(Duration(seconds: 1));
+
         await driver.tap(floatingButton);
-        await Future.delayed(Duration(seconds: 1));
 
         await driver.waitFor(textField);
-        await Future.delayed(Duration(seconds: 1));
 
         await driver.tap(textField);
-        await Future.delayed(Duration(seconds: 1));
 
         await driver.enterText('New value');
-        await Future.delayed(Duration(seconds: 1));
 
         await driver.tap(addButton);
-        await Future.delayed(Duration(seconds: 1));
 
         await driver.waitFor(find.text('Added new Value'));
+
         expect(await driver.getText(snackBarTextFinder), 'Added new Value');
 
         await driver.tap(valuesScreenButton);
-        await Future.delayed(Duration(seconds: 1));
 
         await driver.waitFor(iconButton);
-        await Future.delayed(Duration(seconds: 1));
 
         expect(await driver.getText(valueTextFinder), 'New value');
+
+        // Wait for the scroll animation to end
+        await Future.delayed(Duration(milliseconds: 200));
 
         await driver.tap(favoritesScreenButton);
 
         await driver.waitFor(favoritesInfoText);
-        await Future.delayed(Duration(seconds: 1));
+
+        // Wait for the scroll animation to end
+        await Future.delayed(Duration(milliseconds: 200));
 
         await driver.tap(valuesScreenButton);
-        await Future.delayed(Duration(seconds: 1));
 
         await driver.waitFor(iconButton);
-        await Future.delayed(Duration(seconds: 1));
 
         await driver.tap(iconButton);
-        await Future.delayed(Duration(seconds: 1));
 
         await driver.tap(favoritesScreenButton);
-        await Future.delayed(Duration(seconds: 1));
 
         await driver.waitFor(listView);
-        await Future.delayed(Duration(seconds: 1));
       });
     });
   });
