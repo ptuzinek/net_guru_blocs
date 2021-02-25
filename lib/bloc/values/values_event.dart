@@ -33,3 +33,8 @@ class LikedValue extends ValuesEvent {
   @override
   String toString() => "LikedValue";
 }
+
+class ResetRequested extends ValuesEvent {
+  @override
+  String toString() => "ResetRequested";
+}

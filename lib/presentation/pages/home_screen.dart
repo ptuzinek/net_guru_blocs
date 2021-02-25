@@ -90,6 +90,26 @@ class _HomePageState extends State<HomePage> {
                             child: Image.asset('images/netguru_icon.png')),
                       ),
                     ),
+                    PopupMenuButton(
+                      offset: const Offset(0, 300),
+                      onSelected: (choice) =>
+                          BlocProvider.of<ValuesBloc>(context)
+                              .add(ResetRequested()),
+                      itemBuilder: (BuildContext context) => [
+                        PopupMenuItem<String>(
+                          value: 'reset',
+                          child: Row(
+                            children: [
+                              Icon(Icons.repeat),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Text('Reset Database'),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ],
                   // centerTitle: true,
                   title: Text('Netguru values'),

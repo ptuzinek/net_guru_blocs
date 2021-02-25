@@ -55,7 +55,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30.0,
-                    fontFamily: 'Vollkorn',
                   ),
                 ),
               ),

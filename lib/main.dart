@@ -36,8 +36,9 @@ class _MyAppState extends State<MyApp> {
           create: (context) => ValuesBloc(repository: widget.valuesRepository),
         ),
         BlocProvider<FavoritesBloc>(
-          create: (context) =>
-              FavoritesBloc(repository: widget.valuesRepository),
+          create: (context) => FavoritesBloc(
+              repository: widget.valuesRepository,
+              valuesBloc: BlocProvider.of<ValuesBloc>(context)),
         ),
         BlocProvider<TabBloc>(
           create: (context) => TabBloc(),

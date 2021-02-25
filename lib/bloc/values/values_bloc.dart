@@ -31,6 +31,8 @@ class ValuesBloc extends Bloc<ValuesEvent, ValuesState> {
       yield* _mapAnimationEndedToState(event);
     } else if (event is AppStarted) {
       yield* _mapAppStartedToState(event);
+    } else if (event is ResetRequested) {
+      yield* _mapResetRequestedToState(event);
     }
   }
 
@@ -76,5 +78,11 @@ class ValuesBloc extends Bloc<ValuesEvent, ValuesState> {
       print('Error in _mapAppStartedToState $error');
       yield ValuesLoadFailure(error: error);
     }
+  }
+
+  Stream<ValuesState> _mapResetRequestedToState(ResetRequested event) async* {
+    yield ValuesStateLoading();
+    await repository.deleteAllValues();
+    add(AppStarted());
   }
 }

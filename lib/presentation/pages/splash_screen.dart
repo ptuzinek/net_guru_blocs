@@ -63,7 +63,6 @@ class _SplashScreenState extends State<SplashScreen>
               return HomePage();
             }),
       );
-      //MaterialPageRoute(builder: (BuildContext context) => HomePage()));
     });
     return true;
   }
@@ -102,7 +101,7 @@ class _SplashScreenState extends State<SplashScreen>
                           opacity: animation.drive(opacity),
                           child: Text(
                             _netguruWordList[index],
-                            style: TextStyle(fontSize: 30),
+                            style: TextStyle(fontSize: 30, color: Colors.green),
                           ),
                         ),
                       );

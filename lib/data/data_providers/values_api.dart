@@ -11,7 +11,6 @@ final String columnTimestamp = 'timestamp';
 class ValuesDataApi {
   final dbHelper = DatabaseHelper.instance;
 
-  //Adds new Todo records
   Future<int> insertValue(ValueBase valueBase) async {
     final db = await dbHelper.database;
     var result = db.insert(tableValues, valueBase.toMap());
@@ -25,7 +24,6 @@ class ValuesDataApi {
         where: '$columnId = ?', whereArgs: [value.id]);
   }
 
-  //Get All Todo items
   Future<List<ValueBase>> getAllValues() async {
     final db = await dbHelper.database;
 
