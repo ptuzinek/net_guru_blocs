@@ -6,7 +6,7 @@ This is an app that randomly displayes motivational value sentences using fade a
   
   # Functionalities :gear: 
 - Animation of fading text that is randomly displayed
-- User can add new text to the list that is randomly displayed and it will be saved on the devices through SQL Database
+- User can add new text to the list that is randomly displayed and it will be saved on the device's memory through SQL Database
 - Option to save text to the list of favorites by clicking on the heart icon
 - Heart Icon changes to red if currently displayed text is in the favorites list already
 - Option to remove value from favorites
